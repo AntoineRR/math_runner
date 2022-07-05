@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 5, 5, 2 )
+
+[sub_resource type="CubeMesh" id=4]
+size = Vector3( 10, 10, 4 )
+
+[node name="EffectZone" type="Area"]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 4 )
+material/0 = null
