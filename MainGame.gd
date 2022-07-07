@@ -8,6 +8,7 @@ var n_loaded_grounds: int = 0
 var loaded_grounds: Array = []
 
 func _ready():
+	get_node("/root/PlayerVariables").health = 0
 	for _i in range(n_preloaded_grounds):
 		instanciate_ground()
 
