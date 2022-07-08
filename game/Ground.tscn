@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://EffectZone.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Ground.gd" type="Script" id=2]
+[ext_resource path="res://game/Ground.gd" type="Script" id=1]
+[ext_resource path="res://game/EffectZone.tscn" type="PackedScene" id=2]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 20, 1, 40 )
@@ -11,7 +11,7 @@ size = Vector3( 40, 2, 80 )
 
 [node name="Ground" type="StaticBody"]
 collision_layer = 4
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
@@ -22,10 +22,10 @@ material/0 = null
 
 [node name="Spatial" type="Spatial" parent="."]
 
-[node name="LeftEffect" parent="Spatial" instance=ExtResource( 1 )]
+[node name="LeftEffect" parent="Spatial" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 6, 0 )
 
-[node name="RightEffect" parent="Spatial" instance=ExtResource( 1 )]
+[node name="RightEffect" parent="Spatial" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 6, 0 )
 
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
