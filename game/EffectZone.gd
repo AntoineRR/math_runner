@@ -8,13 +8,13 @@ class Effect:
 	var effect_type
 	var value: int
 	
-	func _init(effect_type = null, value = null):
-		if effect_type == null:
-			effect_type = EffectType.values()[randi() % EffectType.size()]
-		if value == null:
-			value = randi() % MAX_VALUE + 1
-		self.effect_type = effect_type
-		self.value = value
+	func _init(_effect_type = null, _value = null):
+		if _effect_type == null:
+			_effect_type = EffectType.values()[randi() % EffectType.size()]
+		if _value == null:
+			_value = randi() % MAX_VALUE + 1
+		self.effect_type = _effect_type
+		self.value = _value
 	
 	func apply(n: int) -> int:
 		match self.effect_type:

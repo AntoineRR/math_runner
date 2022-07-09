@@ -7,6 +7,9 @@ func before_all():
 	effect_zone = load('res://game/EffectZone.gd').new()
 	effect_type = effect_zone.EffectType
 
+func after_all():
+	effect_zone.free()
+
 func test_add():
 	var effect = effect_zone.Effect.new(effect_type.ADD, 2)
 	assert_eq(effect.apply(5), 7)

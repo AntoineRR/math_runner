@@ -19,7 +19,7 @@ func instanciate_ground():
 		instance.translation.z -= n * instance.size - loaded_grounds[0].translation.z
 	instance.connect("ground_deleted", self, "_on_ground_deleted")
 	loaded_grounds.append(instance)
-	$Grounds.add_child(instance)
+	$Grounds.call_deferred("add_child", instance)
 	n_loaded_grounds += 1
 
 func _on_ground_deleted():

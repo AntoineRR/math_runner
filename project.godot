@@ -34,9 +34,18 @@ config/icon="res://icon.png"
 
 PlayerVariables="*res://game/PlayerVariables.gd"
 
+[debug]
+
+gdscript/warnings/integer_division=false
+
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/gut/plugin.cfg" )
+
+[global]
+
+debug=false
+Gdscript=false
 
 [input]
 
