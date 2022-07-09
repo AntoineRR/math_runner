@@ -1,0 +1,13 @@
+name: "Godot GUT tests"
+on: [push, pull_request]
+jobs:
+  gut_tests:
+    name: Run GUT tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install 
+        run: ./install_godot.sh
+      - name: Run tests
+        run: /usr/local/bin/godot -d -s --path $PWD addons/gut/gut_cmdln.gd -gdir=res://test -ginclude_subdirs -gexit
