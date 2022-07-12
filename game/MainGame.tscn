@@ -1,12 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://game/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://game/Ground.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/MainGame.gd" type="Script" id=3]
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 3 )
-ground = ExtResource( 2 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.506139, 0.862452, 0, -0.862452, 0.506139, 0, 22.8385, 25.8317 )

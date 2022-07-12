@@ -27,13 +27,30 @@ class Effect:
 			EffectType.DIVIDE:
 				return int(n / self.value)
 		return n
+	
+	func get_display() -> String:
+		var result = ""
+		match self.effect_type:
+			EffectType.ADD:
+				result += "+"
+			EffectType.SUBSTRACT:
+				result += "-"
+			EffectType.MULTIPLY:
+				result += "x"
+			EffectType.DIVIDE:
+				result += "/"
+		result += str(self.value)
+		return result
 
 var effect: Effect
+onready var player_vars = get_node("/root/PlayerVariables")
+onready var label = get_node("3DText/Viewport/Label")
 
 func _ready():
 	effect = Effect.new()
+	label.text = effect.get_display()
 
 func _on_EffectZone_body_entered(body):
 	if body.get_collision_layer_bit(0):
-		get_node("/root/PlayerVariables").health = effect.apply(get_node("/root/PlayerVariables").health)
-		print(get_node("/root/PlayerVariables").health)
+		player_vars.health = effect.apply(player_vars.health)
+		print(player_vars.health)
