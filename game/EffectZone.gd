@@ -1,5 +1,7 @@
 extends Area
 
+signal effect_zone_entered
+
 enum EffectType {ADD, SUBSTRACT, MULTIPLY, DIVIDE}
 
 class Effect:
@@ -52,5 +54,7 @@ func _ready():
 
 func _on_EffectZone_body_entered(body):
 	if body.get_collision_layer_bit(0):
+		print(player_vars.health)
 		player_vars.health = effect.apply(player_vars.health)
 		print(player_vars.health)
+		emit_signal("effect_zone_entered")
