@@ -63,9 +63,11 @@ move_left={
 [layer_names]
 
 3d_physics/layer_1="player"
-3d_physics/layer_2="effect_zone"
+3d_physics/layer_2="player_effect_zone"
 3d_physics/layer_3="obstacles"
 3d_physics/layer_4="minions"
+3d_physics/layer_5="ground"
+3d_physics/layer_6="minion_effect_zone"
 
 [physics]
 

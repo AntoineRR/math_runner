@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://game/Ground.gd" type="Script" id=1]
 [ext_resource path="res://game/EffectZone.tscn" type="PackedScene" id=2]
@@ -9,8 +9,11 @@ extents = Vector3( 20, 1, 40 )
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 40, 2, 80 )
 
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 4, 6, 40 )
+
 [node name="Ground" type="StaticBody"]
-collision_layer = 4
+collision_layer = 16
 collision_mask = 9
 script = ExtResource( 1 )
 
@@ -21,17 +24,35 @@ shape = SubResource( 1 )
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="Spatial" type="Spatial" parent="."]
+[node name="Effect" type="Spatial" parent="."]
 
-[node name="LeftEffect" parent="Spatial" instance=ExtResource( 2 )]
+[node name="LeftEffect" parent="Effect" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 6, 0 )
 
-[node name="RightEffect" parent="Spatial" instance=ExtResource( 2 )]
+[node name="RightEffect" parent="Effect" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 6, 0 )
 
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
 aabb = AABB( -20, -1, -40, 40, 12, 80 )
 
-[connection signal="effect_zone_entered" from="Spatial/LeftEffect" to="." method="_on_effect_zone_entered"]
-[connection signal="effect_zone_entered" from="Spatial/RightEffect" to="." method="_on_effect_zone_entered"]
+[node name="Deactivate" type="Spatial" parent="."]
+
+[node name="LeftDeactivate" type="Area" parent="Deactivate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 5, 0 )
+collision_layer = 32
+collision_mask = 8
+
+[node name="CollisionShape" type="CollisionShape" parent="Deactivate/LeftDeactivate"]
+shape = SubResource( 3 )
+
+[node name="RightDeactivate" type="Area" parent="Deactivate"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 5, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Deactivate/RightDeactivate"]
+shape = SubResource( 3 )
+
+[connection signal="effect_zone_entered" from="Effect/LeftEffect" to="." method="_on_effect_zone_entered"]
+[connection signal="effect_zone_entered" from="Effect/RightEffect" to="." method="_on_effect_zone_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_VisibilityNotifier_screen_exited"]
+[connection signal="body_entered" from="Deactivate/LeftDeactivate" to="." method="_on_Deactivate_body_entered"]
+[connection signal="body_entered" from="Deactivate/RightDeactivate" to="." method="_on_Deactivate_body_entered"]

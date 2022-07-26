@@ -36,7 +36,7 @@ func adjust_minions(new_health):
 func instantiate_minion():
 	var instance = minion.instance()
 	instance.init(player)
-	instance.translation = player.translation
+	instance.translation = player.translation + Vector3(rand_range(-1.0, 1.0), 0.0, rand_range(-1.0, 1.0))
 	instance.connect("minion_exited_screen", self, "_on_minion_exited_screen")
 	loaded_minions.append(instance)
 	call_deferred("add_child", instance)
