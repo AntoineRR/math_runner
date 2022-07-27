@@ -21,11 +21,9 @@ func _process(_delta):
 			to_instantiate -= 1
 			to_do -= 1
 	if to_delete > 0:
-		var to_do = chunk
-		while to_do > 0 and to_delete > 0:
+		while to_delete > 0:
 			destroy_minion(null)
 			to_delete -= 1
-			to_do -= 1
 
 func adjust_minions(new_health):
 	if new_health - 1 > len(loaded_minions):

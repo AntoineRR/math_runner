@@ -6,7 +6,7 @@ onready var ground_container = $Grounds
 onready var minion_container = $Minions
 onready var score_label = $Score/Label
 
-export var n_preloaded_grounds: int = 2
+export var n_preloaded_grounds: int = 4
 
 var loaded_grounds: Array = []
 
