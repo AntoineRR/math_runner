@@ -4,12 +4,11 @@ signal minion_destroyed
 
 export var chunk = 10
 
+onready var player = get_node("/root/PlayerVariables").player
 var minion = preload("res://game/Minion.tscn")
 var loaded_minions: Array = []
 var to_instantiate = 0
 var to_delete = 0
-
-onready var player = get_node("../Player")
 
 # We only treat at most a chunk of minion each frame
 # This avoids frame drops when instantiating a lot of minions
@@ -33,7 +32,6 @@ func adjust_minions(new_health):
 
 func instantiate_minion():
 	var instance = minion.instance()
-	instance.init(player)
 	instance.translation = player.translation + Vector3(rand_range(-1.0, 1.0), 0.0, rand_range(-1.0, 1.0))
 	instance.connect("minion_exited_screen", self, "_on_minion_exited_screen")
 	loaded_minions.append(instance)

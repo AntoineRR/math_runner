@@ -33,6 +33,7 @@ config/icon="res://icon.png"
 [autoload]
 
 PlayerVariables="*res://game/player/PlayerVariables.gd"
+GameManager="*res://game/GameManager.gd"
 
 [debug]
 
@@ -75,6 +76,7 @@ move_left={
 3d_physics/layer_4="minions"
 3d_physics/layer_5="ground"
 3d_physics/layer_6="minion_effect_zone"
+3d_physics/layer_7="enemies"
 
 [physics]
 

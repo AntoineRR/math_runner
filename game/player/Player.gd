@@ -5,6 +5,9 @@ export var fall_acceleration = 10
 
 var velocity = Vector3.ZERO
 
+func _ready():
+	get_node("/root/PlayerVariables").register_player(self)
+
 func _physics_process(delta):
 	var direction = Vector3.ZERO
 	
