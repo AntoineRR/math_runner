@@ -1,4 +1,4 @@
-extends StaticBody
+extends RigidBody
 
 signal ground_deleted
 signal effect_zone_entered

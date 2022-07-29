@@ -11,7 +11,8 @@ size = Vector3( 40, 2, 40 )
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 4, 6, 20 )
 
-[node name="Ground" type="StaticBody"]
+[node name="Ground" type="RigidBody"]
+mode = 3
 script = ExtResource( 2 )
 size = 40
 spawnpoints = [ NodePath("SpawnPoint") ]

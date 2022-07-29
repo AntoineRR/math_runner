@@ -10,6 +10,9 @@ export var n_preloaded_tiles: int = 4
 var tiles = [preload("res://game/tiles/Ground.tscn"), preload("res://game/tiles/enemies/Enemies.tscn")]
 var loaded_tiles: Array = []
 
+func _ready():
+	game.register_grounds(self)
+
 func _process(delta):
 	for elt in loaded_tiles:
 		elt.global_transform.origin.z += game.speed*delta
