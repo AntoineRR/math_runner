@@ -1,6 +1,6 @@
 extends Area
 
-signal effect_zone_entered
+signal effect_zone_entered(health_diff)
 
 enum EffectType {ADD, SUBSTRACT, MULTIPLY, DIVIDE}
 
@@ -45,7 +45,7 @@ class Effect:
 		return result
 
 var effect: Effect
-onready var player_vars = get_node("/root/PlayerVariables")
+onready var game = get_node("/root/GameManager")
 onready var label = get_node("3DText/Viewport/Label")
 
 func _ready():
@@ -54,5 +54,5 @@ func _ready():
 
 func _on_EffectZone_body_entered(body):
 	if body.get_collision_layer_bit(0):
-		player_vars.health = effect.apply(player_vars.health)
-		emit_signal("effect_zone_entered")
+		var diff: int = int(game.player.health - effect.apply(game.player.health))
+		emit_signal("effect_zone_entered", diff)

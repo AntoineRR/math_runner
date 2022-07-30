@@ -1,14 +1,34 @@
-extends RigidBody
+extends KinematicBody
 
 var attracted = true
-onready var game = get_node("/root/GameManager")
-onready var player = get_node("/root/PlayerVariables").player
+var chasing = false
+var speed = 10
 
-func _process(_delta):
-	if attracted:
-		var attraction = player.global_transform.origin - global_transform.origin
-		if attraction.length() < 20:
-			add_force(attraction, Vector3.ZERO)
+var velocity = Vector3.ZERO
+
+onready var game = get_node("/root/GameManager")
+
+func _physics_process(_delta):
+	velocity.y -= game.fall_acceleration
+	velocity = move_and_slide(velocity, Vector3.UP)
+	
+	if attracted and chasing:
+		velocity = (game.player.global_transform.origin - global_transform.origin).normalized() * speed
+	else:
+		velocity = get_floor_velocity()
 
 func _on_VisibilityNotifier_screen_exited():
 	queue_free()
+
+func _on_Area_body_entered(body):
+	if body.get_collision_layer_bit(0):
+		chasing = true
+
+func _on_Area_body_exited(body):
+	if body.get_collision_layer_bit(0):
+		chasing = false
+
+func _on_Hitbox_body_entered(body):
+	if body.get_collision_layer_bit(0):
+		game.player.take_damage(1)
+		queue_free()

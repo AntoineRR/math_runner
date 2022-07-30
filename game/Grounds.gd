@@ -1,6 +1,6 @@
 extends Spatial
 
-signal effect_activated
+signal effect_activated(health_diff)
 signal spawn_enemies(position)
 
 onready var game = get_node("/root/GameManager")
@@ -43,5 +43,5 @@ func _on_ground_deleted():
 	loaded_tiles.pop_front()
 	instanciate_tile()
 
-func _on_effect_zone_entered():
-	emit_signal("effect_activated")
+func _on_effect_zone_entered(diff):
+	emit_signal("effect_activated", diff)

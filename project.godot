@@ -32,7 +32,6 @@ config/icon="res://icon.png"
 
 [autoload]
 
-PlayerVariables="*res://game/player/PlayerVariables.gd"
 GameManager="*res://game/GameManager.gd"
 
 [debug]
