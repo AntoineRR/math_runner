@@ -2,6 +2,7 @@ extends KinematicBody
 
 var attracted = true
 var chasing = false
+var deadly = true
 var speed = 10
 
 var velocity = Vector3.ZERO
@@ -29,9 +30,12 @@ func _on_Area_body_exited(body):
 		chasing = false
 
 func _on_Hitbox_body_entered(body):
-	if body.get_collision_layer_bit(0):
-		game.player.take_damage(1)
-		queue_free()
-	elif body.get_collision_layer_bit(3):
-		body.die()
-		queue_free()
+	if deadly:
+		if body.get_collision_layer_bit(0):
+			deadly = false
+			game.player.take_damage(1)
+			queue_free()
+		elif body.get_collision_layer_bit(3):
+			deadly = false
+			body.die()
+			queue_free()
