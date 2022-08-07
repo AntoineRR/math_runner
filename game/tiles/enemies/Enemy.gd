@@ -32,3 +32,6 @@ func _on_Hitbox_body_entered(body):
 	if body.get_collision_layer_bit(0):
 		game.player.take_damage(1)
 		queue_free()
+	elif body.get_collision_layer_bit(3):
+		body.die()
+		queue_free()

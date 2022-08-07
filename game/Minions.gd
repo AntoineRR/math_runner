@@ -36,7 +36,8 @@ func adjust_minions(new_health):
 func instantiate_minion():
 	var instance = minion.instance()
 	instance.translation = game.player.translation + Vector3(rand_range(-1.0, 1.0), 0.0, rand_range(-1.0, 1.0))
-	instance.connect("minion_exited_screen", self, "_on_minion_exited_screen")
+	instance.connect("minion_killed", self, "_on_minion_die")
+	instance.connect("minion_exited_screen", self, "_on_minion_die")
 	loaded_minions.append(instance)
 	add_child(instance)
 
@@ -44,10 +45,11 @@ func destroy_minion(instance):
 	if instance == null:
 		instance = loaded_minions[randi() % len(loaded_minions)]
 	# Need to disconnect signal because it is sent when destroying the object
-	instance.disconnect("minion_exited_screen", self, "_on_minion_exited_screen")
+	instance.disconnect("minion_killed", self, "_on_minion_die")
+	instance.disconnect("minion_exited_screen", self, "_on_minion_die")
 	instance.queue_free()
 	loaded_minions.erase(instance)
 
-func _on_minion_exited_screen(instance):
+func _on_minion_die(instance):
 	destroy_minion(instance)
 	emit_signal("minion_destroyed")
