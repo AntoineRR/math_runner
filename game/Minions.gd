@@ -5,7 +5,7 @@ signal minion_destroyed
 export var chunk = 10
 
 onready var game = get_node("/root/GameManager")
-var minion = preload("res://game/Minion.tscn")
+var minion = preload("res://game/AI/Minion.tscn")
 var loaded_minions: Array = []
 var to_instantiate = 0
 var to_delete = 0

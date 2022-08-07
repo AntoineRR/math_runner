@@ -7,7 +7,10 @@ onready var game = get_node("/root/GameManager")
 
 export var n_preloaded_tiles: int = 4
 
-var tiles = [preload("res://game/tiles/Ground.tscn"), preload("res://game/tiles/enemies/Enemies.tscn")]
+var tiles = [
+	preload("res://game/tiles/GroundWithEffectZones.tscn"),
+	preload("res://game/tiles/GroundWithEnemies.tscn")
+]
 var loaded_tiles: Array = []
 
 func _ready():

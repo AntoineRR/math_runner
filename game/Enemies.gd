@@ -1,6 +1,6 @@
 extends Spatial
 
-var enemy = preload("res://game/tiles/enemies/Enemy.tscn")
+var enemy = preload("res://game/AI/Enemy.tscn")
 
 func spawn(position):
 	var n = randi() % 10
