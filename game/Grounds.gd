@@ -7,9 +7,10 @@ onready var game = get_node("/root/GameManager")
 
 export var n_preloaded_tiles: int = 4
 
+var default_tile = preload("res://game/tiles/Ground.tscn")
 var tiles = [
 	preload("res://game/tiles/GroundWithEffectZones.tscn"),
-	preload("res://game/tiles/GroundWithEnemies.tscn")
+	preload("res://game/tiles/GroundWithEnemies.tscn"),
 ]
 var loaded_tiles: Array = []
 
@@ -21,12 +22,15 @@ func _process(delta):
 		elt.global_transform.origin.z += game.speed*delta
 
 func init():
-	for _i in range(n_preloaded_tiles):
+	instanciate_tile(default_tile)
+	for _i in range(n_preloaded_tiles - 1):
 		instanciate_tile()
 
-func instanciate_tile():
-	# Choose a random tile and instance it
-	var instance = tiles[randi() % len(tiles)].instance()
+func instanciate_tile(tile = null):
+	if tile == null:
+		# Choose a random tile and instance it
+		tile = tiles[randi() % len(tiles)]
+	var instance = tile.instance()
 	# Move it to the right position
 	if len(loaded_tiles) != 0:
 		var last = loaded_tiles[len(loaded_tiles) - 1]
