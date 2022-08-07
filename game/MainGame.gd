@@ -21,3 +21,9 @@ func _on_Grounds_effect_activated(diff: int):
 
 func _on_Grounds_spawn_enemies(position):
 	enemies_container.spawn(position)
+
+func _on_Bottom_body_entered(body):
+	if body.get_collision_layer_bit(3):
+		body.die()
+	else:
+		body.queue_free()
