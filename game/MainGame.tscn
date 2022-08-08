@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://game/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/Minions.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://game/Score.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game/Enemies.gd" type="Script" id=5]
 [ext_resource path="res://game/Grounds.gd" type="Script" id=6]
+[ext_resource path="res://game/joystick/Joystick.tscn" type="PackedScene" id=7]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 150, 5, 150 )
@@ -43,6 +44,8 @@ collision_mask = 73
 
 [node name="CollisionShape" type="CollisionShape" parent="Bottom"]
 shape = SubResource( 1 )
+
+[node name="Joystick" parent="." instance=ExtResource( 7 )]
 
 [connection signal="effect_activated" from="Grounds" to="." method="_on_Grounds_effect_activated"]
 [connection signal="spawn_enemies" from="Grounds" to="." method="_on_Grounds_spawn_enemies"]

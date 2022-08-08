@@ -12,15 +12,8 @@ func _ready():
 
 func _physics_process(_delta):
 	var direction = Vector3.ZERO
-	
-	if Input.is_action_pressed("move_left"):
-		direction.x -= 1
-	if Input.is_action_pressed("move_right"):
-		direction.x += 1
-	if Input.is_action_pressed("move_up"):
-		direction.z -= 1
-	if Input.is_action_pressed("move_down"):
-		direction.z += 1
+	direction.x = Input.get_axis("ui_left", "ui_right")
+	direction.z = Input.get_axis("ui_up", "ui_down")
 	
 	velocity = direction * speed
 	velocity.y -= game.fall_acceleration
