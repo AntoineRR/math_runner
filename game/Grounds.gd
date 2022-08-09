@@ -17,9 +17,10 @@ var loaded_tiles: Array = []
 func _ready():
 	game.register_grounds(self)
 
-func _process(delta):
+func _physics_process(delta):
 	for elt in loaded_tiles:
-		elt.global_transform.origin.z += game.speed*delta
+		if elt.is_inside_tree():
+			elt.global_transform.origin.z += game.speed*delta
 
 func init():
 	instanciate_tile(default_tile)

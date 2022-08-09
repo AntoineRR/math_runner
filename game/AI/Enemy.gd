@@ -9,16 +9,11 @@ var velocity = Vector3.ZERO
 
 onready var game = get_node("/root/GameManager")
 
-func _ready():
-	game.debug_overlay.add_stat("Velocity"+self.name, self, "velocity", false)
-
 func _physics_process(_delta):
 	velocity.y -= game.fall_acceleration
 	velocity = move_and_slide(velocity, Vector3.UP)
 	if attracted and chasing:
 		velocity = (game.player.global_transform.origin - global_transform.origin).normalized() * speed
-	else:
-		velocity = get_floor_velocity()
 
 func _on_VisibilityNotifier_screen_exited():
 	queue_free()
