@@ -6,9 +6,6 @@ extends Control
 
 #### EXPORTED VARIABLE ####
 
-# The color of the button when the joystick is in use.
-export(Color) var pressed_color := Color.gray
-
 # If the input is inside this range, the output is zero.
 export(float, 0, 200, 1) var deadzone_size : float = 10
 
@@ -50,25 +47,22 @@ onready var _base_radius = _base.rect_size * _base.get_global_transform_with_can
 onready var _base_default_position : Vector2 = _base.rect_position
 onready var _tip_default_position : Vector2 = _tip.rect_position
 
-onready var _default_color : Color = _tip.modulate
-
 #### FUNCTIONS ####
 
 func _ready() -> void:
-	if not OS.has_touchscreen_ui_hint():
-		hide()
+	hide()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			if _is_point_inside_joystick_area(event.position) and _touch_index == -1:
+				show()
 				_move_base(event.position)
 				_touch_index = event.index
-				_base.modulate = pressed_color
-				_tip.modulate = pressed_color
 				_update_joystick(event.position)
 				get_tree().set_input_as_handled()
 		elif event.index == _touch_index:
+			hide()
 			_reset()
 			get_tree().set_input_as_handled()
 	elif event is InputEventScreenDrag:
@@ -134,7 +128,6 @@ func _reset():
 	_pressed = false
 	_output = Vector2.ZERO
 	_touch_index = -1
-	_tip.modulate = _default_color
 	_base.rect_position = _base_default_position
 	_tip.rect_position = _tip_default_position
 	if use_input_actions:
