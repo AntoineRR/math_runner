@@ -24,7 +24,6 @@ shape = SubResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 4 )
-material/0 = null
 
 [node name="3DText" type="Sprite3D" parent="."]
 transform = Transform( 7, 0, 0, 0, 7, 0, 0, 0, 1, 0, 0, 2.01 )
