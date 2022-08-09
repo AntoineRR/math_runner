@@ -1,18 +1,18 @@
 extends Control
 
-onready var game = get_node("/root/GameManager")
-onready var label = $Label
+onready var game: GameManager = get_node("/root/GameManager")
+onready var label: Node = $Label
 
 var stats: Array = []
 
 class Stat:
-	var name
-	var object
-	var stat
-	var is_method
+	var display_name: String
+	var object: Object
+	var stat: String
+	var is_method: bool
 	
-	func _init(_name, _object, _stat, _is_method):
-		name = _name
+	func _init(_display_name: String, _object: Object, _stat: String, _is_method: bool):
+		display_name = _display_name
 		object = _object
 		stat = _stat
 		is_method = _is_method
@@ -21,7 +21,7 @@ func _ready():
 	game.register_debug_overlay(self)
 	add_stat("FPS", Engine, "get_frames_per_second", true)
 
-func _process(_delta):
+func _process(_delta: float):
 	var to_display = ""
 	var new_stats = []
 	for stat in stats:
@@ -31,13 +31,13 @@ func _process(_delta):
 	label.text = to_display
 	stats = new_stats
 
-func add_stat(name, object, stat, is_method):
-	stats.append(Stat.new(name, object, stat, is_method))
+func add_stat(display_name: String, object: Object, stat: String, is_method: bool):
+	stats.append(Stat.new(display_name, object, stat, is_method))
 
-func format_stat(stat):
+func format_stat(stat: Stat):
 	var value
 	if stat.is_method:
 		value = stat.object.call(stat.stat)
 	else:
 		value = stat.object.get(stat.stat)
-	return stat.name + ": " + str(value)
+	return stat.display_name + ": " + str(value)

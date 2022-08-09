@@ -3,12 +3,12 @@ extends Spatial
 signal effect_activated(health_diff)
 signal spawn_enemies(position)
 
-onready var game = get_node("/root/GameManager")
+onready var game: GameManager = get_node("/root/GameManager")
 
 export var n_preloaded_tiles: int = 4
 
-var default_tile = preload("res://game/tiles/Ground.tscn")
-var tiles = [
+var default_tile: PackedScene = preload("res://game/tiles/Ground.tscn")
+var tiles: Array = [
 	preload("res://game/tiles/GroundWithEffectZones.tscn"),
 	preload("res://game/tiles/GroundWithEnemies.tscn"),
 ]
@@ -17,10 +17,10 @@ var loaded_tiles: Array = []
 func _ready():
 	game.register_grounds(self)
 
-func _physics_process(delta):
+func _physics_process(delta: float):
 	for elt in loaded_tiles:
 		if elt.is_inside_tree():
-			elt.global_transform.origin.z += game.speed*delta
+			elt.global_transform.origin.z += game.speed * delta
 
 func init():
 	instanciate_tile(default_tile)
@@ -51,5 +51,5 @@ func _on_ground_deleted():
 	loaded_tiles.pop_front()
 	instanciate_tile()
 
-func _on_effect_zone_entered(diff):
+func _on_effect_zone_entered(diff: int):
 	emit_signal("effect_activated", diff)

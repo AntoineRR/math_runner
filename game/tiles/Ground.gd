@@ -10,8 +10,8 @@ func _on_VisibilityNotifier_screen_exited():
 	emit_signal("ground_deleted")
 	queue_free()
 
-func _on_effect_zone_entered(diff):
+func _on_effect_zone_entered(diff: int):
 	emit_signal("effect_zone_entered", diff)
 
-func _on_Deactivate_body_entered(body):
+func _on_Deactivate_body_entered(body: PhysicsBody):
 	body.attracted = false

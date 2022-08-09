@@ -7,7 +7,7 @@ enum EffectType {ADD, SUBSTRACT, MULTIPLY, DIVIDE}
 class Effect:
 	var MAX_VALUE: int = 10
 	
-	var effect_type
+	var effect_type: int
 	var value: int
 	
 	func _init(_effect_type = null, _value = null):
@@ -45,14 +45,14 @@ class Effect:
 		return result
 
 var effect: Effect
-onready var game = get_node("/root/GameManager")
-onready var label = get_node("3DText/Viewport/Label")
+onready var game: GameManager = get_node("/root/GameManager")
+onready var label: Node = get_node("3DText/Viewport/Label")
 
 func _ready():
 	effect = Effect.new()
 	label.text = effect.get_display()
 
-func _on_EffectZone_body_entered(body):
+func _on_EffectZone_body_entered(body: PhysicsBody):
 	if body.get_collision_layer_bit(0):
 		var diff: int = int(game.player.health - effect.apply(game.player.health))
 		emit_signal("effect_zone_entered", diff)
