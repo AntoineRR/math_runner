@@ -10,6 +10,8 @@ var player
 var grounds
 var minions
 
+var debug_overlay
+
 func register_main(_main):
 	main = _main
 
@@ -21,6 +23,9 @@ func register_grounds(_grounds):
 
 func register_minions(_minions):
 	minions = _minions
+
+func register_debug_overlay(_debug_overlay):
+	debug_overlay = _debug_overlay
 
 func adjust_minions():
 	minions.adjust_minions(player.health)
