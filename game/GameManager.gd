@@ -1,6 +1,11 @@
 extends Node
 
+const home_scene_path: String = "res://screens/home/Home.tscn"
+const game_scene_path: String = "res://game/MainGame.tscn"
+
 const fall_acceleration: float = 9.81
+
+var loading_scene: Resource = load("res://screens/Loading.tscn")
 
 var score: int = 0
 var speed: float = 20.0
@@ -33,3 +38,28 @@ func adjust_minions():
 func update_score(value: int):
 	score = value
 	main.get_node("Score/Label").text = str(score)
+
+func change_scene(new_scene_path: String):
+	# Remove previous scene
+	var root = get_tree().get_root()
+	var current_scene = root.get_child(root.get_child_count() - 1)
+	root.call_deferred("remove_child", current_scene)
+	current_scene.call_deferred("free")
+
+	# Add loading screen
+	var loading_screen = loading_scene.instance()
+	root.add_child(loading_screen)
+
+	# Add next scene
+	var loader = ResourceLoader.load_interactive(new_scene_path)
+	while true:
+		var res = loader.poll()
+		if res == OK:
+			loading_screen.get_node("ProgressBar").value = (float(loader.get_stage()) / loader.get_stage_count()) * 100
+		elif res == ERR_FILE_EOF:
+			var next_scene = loader.get_resource().instance()
+			root.call_deferred("remove_child", loading_screen)
+			loading_screen.call_deferred("free")
+			root.add_child(next_scene)
+			break
+		yield(get_tree(), "idle_frame")
