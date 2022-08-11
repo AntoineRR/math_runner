@@ -8,9 +8,7 @@ onready var score_label: Label = $Score/Label
 
 func _ready():
 	game.register_main(self)
-	randomize()
-	game.player.health = 1
-	game.update_score(1)
+	game.reset()
 	ground_container.init()
 
 func _on_Minions_minion_destroyed():

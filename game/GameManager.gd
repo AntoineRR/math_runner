@@ -17,6 +17,9 @@ var minions: Node
 
 var debug_overlay: Node
 
+func _ready():
+	randomize()
+
 func register_main(_main: Node):
 	main = _main
 
@@ -38,6 +41,10 @@ func adjust_minions():
 func update_score(value: int):
 	score = value
 	main.get_node("Score/Label").text = str(score)
+
+func reset():
+	player.health = 1
+	update_score(1)
 
 func change_scene(new_scene_path: String):
 	# Remove previous scene
