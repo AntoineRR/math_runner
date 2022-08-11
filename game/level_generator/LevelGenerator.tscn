@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://game/level_generator/LevelGenerator.gd" type="Script" id=1]
+
+[node name="LevelGenerator" type="Spatial"]
+script = ExtResource( 1 )
+play_level = true
+min_length = 10
+max_length = 20
+start_tile_types = [ 0 ]
+tile_types = [ 1, 2, 3 ]

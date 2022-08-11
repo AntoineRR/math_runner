@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "Effect",
+"language": "GDScript",
+"path": "res://game/tiles/props/Effect.gd"
+}, {
+"base": "Reference",
 "class": "GutHookScript",
 "language": "GDScript",
 "path": "res://addons/gut/hook_script.gd"
@@ -23,11 +28,24 @@ _global_script_classes=[ {
 "class": "Joystick",
 "language": "GDScript",
 "path": "res://game/joystick/Joystick.gd"
+}, {
+"base": "Reference",
+"class": "Level",
+"language": "GDScript",
+"path": "res://game/level_generator/Level.gd"
+}, {
+"base": "Reference",
+"class": "Tile",
+"language": "GDScript",
+"path": "res://game/tiles/Tile.gd"
 } ]
 _global_script_class_icons={
+"Effect": "",
 "GutHookScript": "",
 "GutTest": "",
-"Joystick": ""
+"Joystick": "",
+"Level": "",
+"Tile": ""
 }
 
 [application]

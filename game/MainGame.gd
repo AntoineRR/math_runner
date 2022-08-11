@@ -11,6 +11,10 @@ func _ready():
 	game.reset()
 	ground_container.init()
 
+func play_level(_level: Level):
+	# TODO: parse the level in the ground container
+	pass
+
 func _on_Minions_minion_destroyed():
 	game.player.take_damage(1)
 

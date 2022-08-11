@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://game/EffectZone.gd" type="Script" id=1]
-[ext_resource path="res://Roboto-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Roboto-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://game/tiles/props/EffectZone.gd" type="Script" id=2]
 [ext_resource path="res://game/3D_text/LabelViewport.gd" type="Script" id=3]
 [ext_resource path="res://game/3D_text/Sprite3DViewport.gd" type="Script" id=4]
 
@@ -13,11 +13,11 @@ size = Vector3( 10, 10, 4 )
 
 [sub_resource type="DynamicFont" id=6]
 size = 100
-font_data = ExtResource( 2 )
+font_data = ExtResource( 1 )
 
 [node name="EffectZone" type="Area"]
 collision_layer = 2
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 3 )
