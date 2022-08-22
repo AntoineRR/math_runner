@@ -16,6 +16,7 @@ extents = Vector3( 4, 6, 40 )
 collision_layer = 16
 collision_mask = 73
 script = ExtResource( 1 )
+effect_zones = [ NodePath("Effect/LeftEffect"), NodePath("Effect/RightEffect") ]
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )

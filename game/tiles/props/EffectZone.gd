@@ -7,11 +7,13 @@ onready var label: Node = get_node("3DText/Viewport/Label")
 
 var effect: Effect
 
-func _ready():
-	var type = Effect.Type.values()[randi() % Effect.Type.size()]
-	var value = randi() % 9 + 1
-	effect = Effect.new(type, value)
-	label.text = get_display()
+func init(_effect = null):
+	if _effect == null:
+		var type = Effect.Type.values()[randi() % Effect.Type.size()]
+		var value = randi() % 9 + 1
+		_effect = Effect.new(type, value)
+	effect = _effect
+	get_node("3DText/Viewport/Label").text = get_display()
 
 func apply(n: int) -> int:
 	match effect.type:

@@ -34,6 +34,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://game/level_generator/Level.gd"
 }, {
+"base": "Spatial",
+"class": "LevelGenerator",
+"language": "GDScript",
+"path": "res://game/level_generator/LevelGenerator.gd"
+}, {
+"base": "Spatial",
+"class": "SpawnPoint",
+"language": "GDScript",
+"path": "res://game/tiles/props/SpawnPoint.gd"
+}, {
 "base": "Reference",
 "class": "Tile",
 "language": "GDScript",
@@ -45,6 +55,8 @@ _global_script_class_icons={
 "GutTest": "",
 "Joystick": "",
 "Level": "",
+"LevelGenerator": "",
+"SpawnPoint": "",
 "Tile": ""
 }
 

@@ -46,7 +46,7 @@ func reset():
 	player.health = 1
 	update_score(1)
 
-func change_scene(new_scene_path: String):
+func change_scene(new_scene_path: String, init_method = null):
 	# Remove previous scene
 	var root = get_tree().get_root()
 	var current_scene = root.get_child(root.get_child_count() - 1)
@@ -68,5 +68,7 @@ func change_scene(new_scene_path: String):
 			root.call_deferred("remove_child", loading_screen)
 			loading_screen.call_deferred("free")
 			root.add_child(next_scene)
+			if init_method != null and next_scene.has_method(init_method):
+				next_scene.call(init_method)
 			break
 		yield(get_tree(), "idle_frame")
