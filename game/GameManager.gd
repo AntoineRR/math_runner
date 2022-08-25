@@ -1,7 +1,10 @@
 extends Node
 
 const home_scene_path: String = "res://screens/home/Home.tscn"
+const level_picker_scene_path: String = "res://screens/level_picker/LevelPicker.tscn"
 const game_scene_path: String = "res://game/MainGame.tscn"
+
+const levels_path: String = "res://levels"
 
 const fall_acceleration: float = 9.81
 
@@ -46,7 +49,7 @@ func reset():
 	player.health = 1
 	update_score(1)
 
-func change_scene(new_scene_path: String, init_method = null):
+func change_scene(new_scene_path: String, init_method = null, init_parameters = null):
 	# Remove previous scene
 	var root = get_tree().get_root()
 	var current_scene = root.get_child(root.get_child_count() - 1)
@@ -69,7 +72,10 @@ func change_scene(new_scene_path: String, init_method = null):
 			loading_screen.call_deferred("free")
 			root.add_child(next_scene)
 			if init_method != null and next_scene.has_method(init_method):
-				next_scene.call(init_method)
+				if init_parameters != null:
+					next_scene.call(init_method, init_parameters)
+				else:
+					next_scene.call(init_method)
 			break
 		yield(get_tree(), "idle_frame")
 
@@ -81,15 +87,19 @@ func load_level(path: String) -> Level:
 	var level_data = parse_json(level_file.get_line())
 	level_file.close()
 	
+	# We need to explicitely cast the enum values to int
+	var casted_types = []
+	for type in level_data["tile_types"]:
+		casted_types.append(int(type))
 	var ordered_tiles = []
 	for tile_data in level_data["ordered_tiles"]:
 		var metadata = tile_data["metadata"].duplicate(true)
-		if tile_data.has("effects"):
+		if tile_data["metadata"].has("effects"):
 			metadata["effects"] = []
-			for effect_data in tile_data["effects"]:
-				var effect = Effect.new(effect_data["type"], effect_data["value"])
+			for effect_data in tile_data["metadata"]["effects"]:
+				var effect = Effect.new(int(effect_data["type"]), int(effect_data["value"]))
 				metadata["effects"].append(effect)
 		var tile = Tile.new(tile_data["type"], metadata)
 		ordered_tiles.append(tile)
-	var level = Level.new(level_data["tile_types"], ordered_tiles, level_data["speed"])
+	var level = Level.new(casted_types, ordered_tiles, level_data["speed"])
 	return level
