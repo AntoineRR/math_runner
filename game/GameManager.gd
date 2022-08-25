@@ -72,3 +72,24 @@ func change_scene(new_scene_path: String, init_method = null):
 				next_scene.call(init_method)
 			break
 		yield(get_tree(), "idle_frame")
+
+func load_level(path: String) -> Level:
+	var level_file = File.new()
+	if not level_file.file_exists(path):
+		return null
+	level_file.open(path, File.READ)
+	var level_data = parse_json(level_file.get_line())
+	level_file.close()
+	
+	var ordered_tiles = []
+	for tile_data in level_data["ordered_tiles"]:
+		var metadata = tile_data["metadata"].duplicate(true)
+		if tile_data.has("effects"):
+			metadata["effects"] = []
+			for effect_data in tile_data["effects"]:
+				var effect = Effect.new(effect_data["type"], effect_data["value"])
+				metadata["effects"].append(effect)
+		var tile = Tile.new(tile_data["type"], metadata)
+		ordered_tiles.append(tile)
+	var level = Level.new(level_data["tile_types"], ordered_tiles, level_data["speed"])
+	return level

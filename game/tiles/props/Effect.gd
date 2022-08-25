@@ -8,3 +8,9 @@ var value: int
 func _init(_type: int, _value: int):
 	type = _type
 	value = _value
+
+func save() -> Dictionary:
+	return {
+		"type": type,
+		"value": value
+	}

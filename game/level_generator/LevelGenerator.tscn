@@ -1,11 +1,33 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://game/level_generator/LevelGenerator.gd" type="Script" id=1]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Roboto-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 50
+font_data = SubResource( 1 )
 
 [node name="LevelGenerator" type="Spatial"]
 script = ExtResource( 1 )
 play_level = true
-min_length = 10
-max_length = 20
+min_length = 5
+max_length = 10
 start_tile_types = [ 0 ]
 tile_types = [ 1, 2, 3 ]
+save_folder = "/home/romero/linux_data/development/godot/math_runner/levels"
+
+[node name="Save" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -67.5
+margin_top = -33.0
+margin_right = 67.5
+margin_bottom = 33.0
+custom_fonts/font = SubResource( 2 )
+text = "SAVE"
+
+[connection signal="pressed" from="Save" to="." method="_on_Save_pressed"]
