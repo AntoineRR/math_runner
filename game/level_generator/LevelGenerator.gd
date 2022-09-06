@@ -18,6 +18,9 @@ export (Array, Tile.Type) var start_tile_types
 # The tile types to use for the rest of the level
 export (Array, Tile.Type) var tile_types
 
+# The tile types to use for the end of the level
+export (Array, Tile.Type) var end_tile_types
+
 # The difficulty of the level
 export (int, 1, 10) var difficulty
 const MAX_DIFFICULTY: int = 10
@@ -29,7 +32,7 @@ var level: Level
 func _ready():
 	# Checks
 	assert(max_length >= min_length)
-	assert(len(start_tile_types) != 0 and len(tile_types) != 0)
+	assert(len(start_tile_types) != 0 and len(tile_types) != 0 and len(end_tile_types) != 0)
 	# Generate random level based on parameters
 	level = generate_random_level()
 	# Launch MainGame with this level
@@ -93,6 +96,8 @@ func generate_random_level() -> Level:
 	# Remaining tiles
 	for _i in range(length - 1):
 		tiles.append(generate_random_tile(tile_types[randi() % len(tile_types)], unique_types))
+	# Last tile
+	tiles.append(generate_random_tile(end_tile_types[randi() % len(end_tile_types)], unique_types))
 	return Level.new(unique_types, tiles, speed)
 
 

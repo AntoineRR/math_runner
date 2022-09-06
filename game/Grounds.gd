@@ -2,6 +2,7 @@ extends Spatial
 
 signal effect_activated(health_diff)
 signal spawn_enemies(spawnpoint)
+signal end_reached
 
 onready var game: GameManager = get_node("/root/GameManager")
 
@@ -12,6 +13,7 @@ var tiles_map: Dictionary = {
 	Tile.Type.ONE_EFFECT: "res://game/tiles/GroundWithOneEffectZone.tscn",
 	Tile.Type.TWO_EFFECTS: "res://game/tiles/GroundWithTwoEffectZones.tscn",
 	Tile.Type.ENEMIES: "res://game/tiles/GroundWithEnemies.tscn",
+	Tile.Type.END: "res://game/tiles/End.tscn"
 }
 var loaded_tiles: Dictionary = {}
 var instanced_tiles: Array = []
@@ -48,7 +50,7 @@ func play_level(_level: Level):
 func instanciate_tile(tile = null):
 	if tile == null:
 		# Choose a random tile and instance it
-		var type = tiles_map.keys()[randi() % len(tiles_map.keys())]
+		var type = tiles_map.keys().slice(1,len(tiles_map.keys())-2)[randi() % (len(tiles_map.keys())-2)]
 		tile = LevelGenerator.new().generate_random_tile(type, [])
 	var instance = loaded_tiles[tile.type].instance()
 	instance.init(tile.metadata)
@@ -59,6 +61,7 @@ func instanciate_tile(tile = null):
 	# Connect signals
 	instance.connect("ground_deleted", self, "_on_ground_deleted")
 	instance.connect("effect_zone_entered", self, "_on_effect_zone_entered")
+	instance.connect("end_reached", self, "_on_end_reached")
 	# Add tile to the current tiles
 	instanced_tiles.append(instance)
 	call_deferred("add_child", instance)
@@ -79,3 +82,6 @@ func _on_ground_deleted():
 
 func _on_effect_zone_entered(diff: int):
 	emit_signal("effect_activated", diff)
+
+func _on_end_reached():
+	emit_signal("end_reached")

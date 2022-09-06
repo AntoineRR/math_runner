@@ -2,6 +2,7 @@ extends KinematicBody
 
 signal ground_deleted
 signal effect_zone_entered(health_diff)
+signal end_reached
 
 export var size: int = 80
 export (Array, NodePath) var spawnpoints
@@ -31,3 +32,7 @@ func _on_effect_zone_entered(diff: int):
 
 func _on_Deactivate_body_entered(body: PhysicsBody):
 	body.attracted = false
+
+func _on_EndTrigger_body_entered(body: PhysicsBody):
+	if body.get_collision_layer_bit(0):
+		emit_signal("end_reached")

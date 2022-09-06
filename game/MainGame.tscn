@@ -53,6 +53,7 @@ shape = SubResource( 1 )
 mouse_filter = 2
 
 [connection signal="effect_activated" from="Grounds" to="." method="_on_Grounds_effect_activated"]
+[connection signal="end_reached" from="Grounds" to="." method="_on_Grounds_end_reached"]
 [connection signal="spawn_enemies" from="Grounds" to="." method="_on_Grounds_spawn_enemies"]
 [connection signal="minion_destroyed" from="Minions" to="." method="_on_Minions_minion_destroyed"]
 [connection signal="body_entered" from="Bottom" to="." method="_on_Bottom_body_entered"]

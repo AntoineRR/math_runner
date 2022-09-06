@@ -1,6 +1,6 @@
 class_name Tile
 
-enum Type { EMPTY=0, ONE_EFFECT=1, TWO_EFFECTS=2, ENEMIES=3 }
+enum Type { EMPTY=0, ONE_EFFECT=1, TWO_EFFECTS=2, ENEMIES=3, END=4 }
 
 var type: int
 var metadata: Dictionary

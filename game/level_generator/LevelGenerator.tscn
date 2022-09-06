@@ -16,6 +16,7 @@ min_length = 5
 max_length = 10
 start_tile_types = [ 0 ]
 tile_types = [ 1, 2, 3 ]
+end_tile_types = [ 4 ]
 save_folder = "/home/romero/linux_data/development/godot/math_runner/levels"
 
 [node name="Save" type="Button" parent="."]

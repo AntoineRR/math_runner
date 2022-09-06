@@ -30,3 +30,7 @@ func _on_Bottom_body_entered(body: PhysicsBody):
 		body.die()
 	else:
 		body.queue_free()
+
+func _on_Grounds_end_reached():
+	# TODO: add level completion logic
+	game.change_scene(game.level_picker_scene_path, "init")
